@@ -1,17 +1,21 @@
 const panel = document.querySelector('.panel');
 const container = document.querySelector('.container');
+let tamano = 256;
 
-
-for(var i = 0; i < 256; i++) {
-    const div = document.createElement('div');
-    div.classList.add('celdas');
-    panel.appendChild(div);
+function creaCeldas(tamano) {
+    for(var i = 0; i < tamano; i++) {
+        const div = document.createElement('div');
+        div.classList.add('celdas');
+        panel.appendChild(div);
+    }
 }
 
-const div = document.querySelectorAll('.celdas');
+creaCeldas(tamano);
+
+
+let div = document.querySelectorAll('.celdas');
 
 function pintar(e) {
-    console.log(e.target);
     e.target.style.backgroundColor = 'red';
 }
 
@@ -26,8 +30,20 @@ container.insertBefore(clearBtn, panel);
 
 
 function clearGrid() {
-    console.log('borrando');
-    div.forEach(cuadrado => cuadrado.style.backgroundColor = '');
+    // div.forEach(cuadrado => cuadrado.style.backgroundColor = '');
+
+    while(panel.firstChild) {
+        panel.removeChild(panel.firstChild)
+    }
+
+    let tamano = Number(prompt("Nuevo panel: Ingresa cantidad de cuadros por lado"));
+    panel.style.gridTemplateRows = "repeat(" + tamano + ", 1fr)";
+    panel.style.gridTemplateColumns = "repeat(" + tamano + ", 1fr)";
+
+    creaCeldas(tamano ** 2);
+
+    let div = document.querySelectorAll('.celdas');
+    div.forEach(cuadrado => cuadrado.addEventListener('mouseover', pintar));
 }
 
 clearBtn.addEventListener('click', clearGrid);
