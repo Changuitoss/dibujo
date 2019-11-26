@@ -1,5 +1,7 @@
 const panel = document.querySelector('.panel');
 const container = document.querySelector('.container');
+const resetBtn = document.querySelector('.resetBtn');
+const randomBtn = document.querySelector('.randomBtn');
 let tamano = 256;
 
 function creaCeldas(tamano) {
@@ -23,14 +25,8 @@ div.forEach(cuadrado => cuadrado.addEventListener('mouseover', pintar));
 
 
 
-const clearBtn = document.createElement('button');
-clearBtn.classList.add('clearBtn');
-clearBtn.textContent = 'clear';
-container.insertBefore(clearBtn, panel);
-
-
 function clearGrid() {
-    // div.forEach(cuadrado => cuadrado.style.backgroundColor = '');
+    //div.forEach(cuadrado => cuadrado.style.backgroundColor = '');
 
     while(panel.firstChild) {
         panel.removeChild(panel.firstChild)
@@ -46,4 +42,14 @@ function clearGrid() {
     div.forEach(cuadrado => cuadrado.addEventListener('mouseover', pintar));
 }
 
-clearBtn.addEventListener('click', clearGrid);
+function randomColors(e) {
+    div.forEach(cuadrado => cuadrado.style.backgroundColor = '');
+    function randomNumber() {
+        Math.floor(Math.random() * 255);
+        var color = rgb(randomNumber(), randomNumber(), randomNumber());
+    }  
+    e.target.style.backgroundColor = color;
+}
+
+resetBtn.addEventListener('click', clearGrid);
+randomBtn.addEventListener('click', randomColors);
