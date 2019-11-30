@@ -26,8 +26,6 @@ div.forEach(cuadrado => cuadrado.addEventListener('mouseover', pintar));
 
 
 function clearGrid() {
-    //div.forEach(cuadrado => cuadrado.style.backgroundColor = '');
-
     while(panel.firstChild) {
         panel.removeChild(panel.firstChild)
     }
@@ -37,18 +35,24 @@ function clearGrid() {
     panel.style.gridTemplateColumns = "repeat(" + tamano + ", 1fr)";
 
     creaCeldas(tamano ** 2);
-
     let div = document.querySelectorAll('.celdas');
     div.forEach(cuadrado => cuadrado.addEventListener('mouseover', pintar));
 }
 
-function randomColors(e) {
-    div.forEach(cuadrado => cuadrado.style.backgroundColor = '');
-    function randomNumber() {
-        Math.floor(Math.random() * 255);
-        var color = rgb(randomNumber(), randomNumber(), randomNumber());
-    }  
+/* Botón Random*/
+
+function randomNumber() {
+    return Math.floor(Math.random() * 255);
+}  
+
+function pintarRandom(e) {
+    var color = "rgb(" + randomNumber() + ", " + randomNumber() + ", " + randomNumber() + ")";
     e.target.style.backgroundColor = color;
+}
+
+function randomColors() {
+    div.forEach(cuadrado => cuadrado.style.backgroundColor = '');
+    div.forEach(cuadrado => cuadrado.addEventListener('mouseover', pintarRandom));
 }
 
 resetBtn.addEventListener('click', clearGrid);
