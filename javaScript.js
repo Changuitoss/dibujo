@@ -1,7 +1,7 @@
 const panel = document.querySelector('.panel');
-const container = document.querySelector('.container');
 const resetBtn = document.querySelector('.resetBtn');
 const randomBtn = document.querySelector('.randomBtn');
+const gamasBtn = document.querySelector('.gamasBtn');
 let tamano = 256;
 
 
@@ -46,7 +46,7 @@ resetBtn.addEventListener('click', clearGrid);
 
 
 
-/* Botón Random*/ 
+/* Botón Random */ 
 
 function randomColors() {
     let celdas = document.querySelectorAll('.celdas');
@@ -64,3 +64,24 @@ function randomNumber() {
 } 
 
 randomBtn.addEventListener('click', randomColors);
+
+
+
+/* Botón Gamas */ 
+
+function gamaColors() {
+    let celdas = document.querySelectorAll('.celdas');
+    celdas.forEach(celda => celda.style.backgroundColor = '');
+    celdas.forEach(celda => celda.addEventListener('mouseover', pintarGama));
+}
+
+function pintarGama(e) {
+    var alpha = 0.1;
+    if (alpha < 1) {
+        var alpha = alpha += 0.1;
+        e.target.style.backgroundColor = 'rgb(0, 0, 0, ' + alpha + ')';
+    }    
+    console.log('alpha: ', alpha);
+}
+
+gamasBtn.addEventListener('click', gamaColors);
