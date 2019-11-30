@@ -1,6 +1,11 @@
 const panel = document.querySelector('.panel');
 const container = document.querySelector('.container');
+const resetBtn = document.querySelector('.resetBtn');
+const randomBtn = document.querySelector('.randomBtn');
 let tamano = 256;
+
+
+/* Grid inicial */
 
 function creaCeldas(tamano) {
     for(var i = 0; i < tamano; i++) {
@@ -12,26 +17,18 @@ function creaCeldas(tamano) {
 
 creaCeldas(tamano);
 
-
-let div = document.querySelectorAll('.celdas');
+let celdas = document.querySelectorAll('.celdas');
+celdas.forEach(celda => celda.addEventListener('mouseover', pintar));
 
 function pintar(e) {
     e.target.style.backgroundColor = 'red';
 }
 
-div.forEach(cuadrado => cuadrado.addEventListener('mouseover', pintar));
 
 
-
-const clearBtn = document.createElement('button');
-clearBtn.classList.add('clearBtn');
-clearBtn.textContent = 'clear';
-container.insertBefore(clearBtn, panel);
-
+/* Botón Reset */
 
 function clearGrid() {
-    // div.forEach(cuadrado => cuadrado.style.backgroundColor = '');
-
     while(panel.firstChild) {
         panel.removeChild(panel.firstChild)
     }
@@ -41,9 +38,29 @@ function clearGrid() {
     panel.style.gridTemplateColumns = "repeat(" + tamano + ", 1fr)";
 
     creaCeldas(tamano ** 2);
-
-    let div = document.querySelectorAll('.celdas');
-    div.forEach(cuadrado => cuadrado.addEventListener('mouseover', pintar));
+    let celdas = document.querySelectorAll('.celdas');
+    celdas.forEach(celda => celda.addEventListener('mouseover', pintar));
 }
 
-clearBtn.addEventListener('click', clearGrid);
+resetBtn.addEventListener('click', clearGrid);
+
+
+
+/* Botón Random*/ 
+
+function randomColors() {
+    let celdas = document.querySelectorAll('.celdas');
+    celdas.forEach(celda => celda.style.backgroundColor = '');
+    celdas.forEach(celda => celda.addEventListener('mouseover', pintarRandom));
+}
+
+function pintarRandom(e) {
+    var color = "rgb(" + randomNumber() + ", " + randomNumber() + ", " + randomNumber() + ")";
+    e.target.style.backgroundColor = color;
+}
+
+function randomNumber() {
+    return Math.floor(Math.random() * 255);
+} 
+
+randomBtn.addEventListener('click', randomColors);
