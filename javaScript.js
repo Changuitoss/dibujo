@@ -72,16 +72,21 @@ randomBtn.addEventListener('click', randomColors);
 function gamaColors() {
     let celdas = document.querySelectorAll('.celdas');
     celdas.forEach(celda => celda.style.backgroundColor = '');
-    celdas.forEach(celda => celda.addEventListener('mouseover', pintarGama));
+    celdas.forEach((celda) => {
+        celda.addEventListener('mouseover', pintarGama);
+        celda.setAttribute('data-alpha', 0.1);
+    });
 }
 
-function pintarGama(e) {
-    var alpha = 0.1;
-    if (alpha < 1) {
-        var alpha = alpha += 0.1;
-        e.target.style.backgroundColor = 'rgb(0, 0, 0, ' + alpha + ')';
-    }    
-    console.log('alpha: ', alpha);
+function pintarGama(e) {    
+    var celda = e.target;
+    var alpha = Number(celda.dataset.alpha);
+    if(alpha <= 1) {
+        celda.style.backgroundColor = 'rgb(0, 0, 0, ' + alpha + ')';
+        celda.setAttribute('data-alpha', alpha + .1);
+    } else {
+        celda.style.backgroundColor = 'rgb(0, 0, 0, 1)';
+    }
 }
 
 gamasBtn.addEventListener('click', gamaColors);
